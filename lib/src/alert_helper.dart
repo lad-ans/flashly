@@ -225,10 +225,10 @@ class _AlertContainer extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Colors.white.withValues(alpha: 0.25),
-                    Colors.white.withValues(alpha: 0.15),
-                    Colors.white.withValues(alpha: 0.08),
-                    Colors.white.withValues(alpha: 0.12),
+                    Theme.of(context).cardColor.withValues(alpha: 0.25),
+                    Theme.of(context).cardColor.withValues(alpha: 0.15),
+                    Theme.of(context).cardColor.withValues(alpha: 0.08),
+                    Theme.of(context).cardColor.withValues(alpha: 0.12),
                   ],
                   stops: [0.0, 0.3, 0.7, 1.0],
                 ) : null,
@@ -236,12 +236,12 @@ class _AlertContainer extends StatelessWidget {
                 // Enhanced border with gradient
                 border: Platform.isIOS ? Border.all(
                   width: 1.2,
-                  color: Colors.white.withValues(alpha: 0.4),
+                  color: Theme.of(context).cardColor.withValues(alpha: 0.4),
                 ) : null,
                 // Subtle inner shadow effect
                 boxShadow: Platform.isIOS ? [
                   BoxShadow(
-                    color: Colors.white.withValues(alpha: 0.6),
+                    color: Theme.of(context).cardColor.withValues(alpha: 0.6),
                     offset: Offset(0, 1),
                     blurRadius: 0,
                     spreadRadius: 0,
@@ -263,8 +263,8 @@ class _AlertContainer extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.white.withValues(alpha: 0.08),
-                      Colors.white.withValues(alpha: 0.02),
+                      Theme.of(context).cardColor.withValues(alpha: 0.08),
+                      Theme.of(context).cardColor.withValues(alpha: 0.02),
                     ],
                   ),
                 ) : null,
@@ -281,7 +281,7 @@ class _AlertContainer extends StatelessWidget {
                           center: Alignment.topLeft,
                           radius: 2.0,
                           colors: [
-                            Colors.white.withValues(alpha: 0.03),
+                            Theme.of(context).cardColor.withValues(alpha: 0.03),
                             Colors.transparent,
                           ],
                         ),
