@@ -203,24 +203,23 @@ class _AlertContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 270),
+      constraints: BoxConstraints(maxWidth: 320),
       child: Dialog(
-        elevation: 0, // Remove shadow for more authentic glass effect
+        elevation: 0,
         insetPadding: EdgeInsets.zero,
         backgroundColor: Colors.transparent,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(Platform.isIOS ? 32 : 20),
           child: BackdropFilter(
             filter: ImageFilter.blur(
-              sigmaX: Platform.isIOS ? 24 : 3, 
-              sigmaY: Platform.isIOS ? 24 : 3
+              sigmaX: Platform.isIOS ? 20 : 3, 
+              sigmaY: Platform.isIOS ? 20 : 3
             ),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 400),
               curve: Curves.easeOutCubic,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Platform.isIOS ? 32 : 20),
-                // Multi-layer glass effect
                 gradient: Platform.isIOS ? LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -233,12 +232,10 @@ class _AlertContainer extends StatelessWidget {
                   stops: [0.0, 0.3, 0.7, 1.0],
                 ) : null,
                 color: Platform.isIOS ? null : Theme.of(Flashly.context).cardColor,
-                // Enhanced border with gradient
                 border: Platform.isIOS ? Border.all(
-                  width: 1.2,
+                  width: .6,
                   color: Theme.of(context).cardColor.withValues(alpha: 0.4),
                 ) : null,
-                // Subtle inner shadow effect
                 boxShadow: Platform.isIOS ? [
                   BoxShadow(
                     color: Theme.of(context).cardColor.withValues(alpha: 0.6),
@@ -256,7 +253,6 @@ class _AlertContainer extends StatelessWidget {
                 ] : null,
               ),
               child: Container(
-                // Additional frosted layer for depth
                 decoration: Platform.isIOS ? BoxDecoration(
                   borderRadius: BorderRadius.circular(31),
                   gradient: LinearGradient(
@@ -272,11 +268,10 @@ class _AlertContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Platform.isIOS ? 31 : 20),
                   child: BackdropFilter(
                     filter: Platform.isIOS 
-                      ? ImageFilter.blur(sigmaX: 8, sigmaY: 8)
+                      ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
                       : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                     child: Container(
                       decoration: Platform.isIOS ? BoxDecoration(
-                        // Subtle noise/texture overlay
                         gradient: RadialGradient(
                           center: Alignment.topLeft,
                           radius: 2.0,
