@@ -39,9 +39,8 @@ void showLoaderAlert({
 }) {
   final placeholdr = placeholder != null ? '$placeholder...' : '';
   showAlert(
-    '', 
+    placeholdr, 
     asLoader: true, 
-    description: placeholdr,
     isDestructive: true,
     positiveTitle: 'Fechar',
     closeLoaderAfterSecs: closeLoaderAfterSecs ?? 45,

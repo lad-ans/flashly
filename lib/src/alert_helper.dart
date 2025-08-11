@@ -92,10 +92,9 @@ Future<T?> _showDialog<T>(
                     loader(),
                     Expanded(
                       child: Txt(
-                        description ?? title, 
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .6), 
-                        fontSize: 15, 
-                        fontWeight: FontWeight.w600, 
+                        title,
+                        fontWeight: FontWeight.bold, 
+                        fontSize: 17, 
                       ),
                     ),
                   ],
@@ -107,18 +106,19 @@ Future<T?> _showDialog<T>(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 2,
                   children: [
-                    if (description != null && title.isNotEmpty) 
+                    if (title.isNotEmpty) 
                       Txt(
                         title, 
                         fontWeight: FontWeight.bold, 
                         fontSize: 17,
                       ),
-                    Txt(
-                      description ?? title, 
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .6), 
-                      fontSize: 15, 
-                      fontWeight: FontWeight.w600, 
-                    ),
+                    if (description != null)
+                      Txt(
+                        description, 
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .6), 
+                        fontSize: 15, 
+                        fontWeight: FontWeight.w600, 
+                      ),
                   ],
                 ),
               ),
