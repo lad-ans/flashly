@@ -35,6 +35,7 @@ void showTimingLoaderAlert(
 void showLoaderAlert({
   String? placeholder,
   int? closeLoaderAfterSecs,
+  Color? actionButtonColor,
 }) {
   final placeholdr = placeholder != null ? '$placeholder...' : '';
   showAlert(
@@ -44,6 +45,7 @@ void showLoaderAlert({
     isDestructive: true,
     positiveTitle: 'Fechar',
     closeLoaderAfterSecs: closeLoaderAfterSecs ?? 45,
+    actionButtonColor: actionButtonColor,
     onPositive: () async {},
   );
 }

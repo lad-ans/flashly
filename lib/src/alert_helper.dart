@@ -22,6 +22,7 @@ Future<T?> showAlert<T>(
   bool asLoader = false,
   VoidCallback? onNegative,
   int? closeLoaderAfterSecs,
+  Color? actionButtonColor,
   Future<void> Function()? onPositive,
   bool enableHaptics = false,
   bool enableSound = false,
@@ -41,6 +42,7 @@ Future<T?> showAlert<T>(
     onPositive: onPositive,
     asLoader: asLoader,
     closeLoaderAfterSecs: closeLoaderAfterSecs,
+    actionButtonColor: actionButtonColor,
   );
 }
 
@@ -53,6 +55,7 @@ Future<T?> _showDialog<T>(
   bool asLoader = false,
   VoidCallback? onNegative,
   int? closeLoaderAfterSecs,
+  Color? actionButtonColor,
   Future<void> Function()? onPositive,
 }) async {
   bool showButton = false;
@@ -128,6 +131,7 @@ Future<T?> _showDialog<T>(
                     Expanded(
                       child: AlertActionButton(
                         text: negativeTitle ?? 'Cancelar',
+                        color: actionButtonColor,
                         onPressed: () {
                           Navigator.pop(Flashly.context);
                           if (onNegative != null) onNegative();
@@ -138,7 +142,7 @@ Future<T?> _showDialog<T>(
                     Expanded(
                       child: AlertActionButton(
                         text: positiveTitle,
-                        color: isDestructive ? CupertinoColors.destructiveRed : null,
+                        color: isDestructive ? CupertinoColors.destructiveRed : actionButtonColor,
                         onPressed: () {
                           Navigator.pop(Flashly.context);
                           if (onPositive != null) onPositive();
