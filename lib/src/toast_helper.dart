@@ -34,7 +34,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _showSnackBar(
       borderRadius: BorderRadius.circular(30),
     ),
     child: Row(
-      spacing: 10,
+      spacing: 11,
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(

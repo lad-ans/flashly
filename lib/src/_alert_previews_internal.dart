@@ -1,52 +1,12 @@
-import 'dart:async';
-import 'dart:io';
 import 'dart:ui';
 
-import 'package:flashly/src/alert_action_button.dart';
-import 'package:flashly/src/hapticsound_helper.dart';
-import 'package:flashly/src/loader_helper.dart';
-import 'package:flashly/src/txt.dart';
-import 'package:flashly/src/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widget_previews.dart';
 
-enum AlertState { error, info, success }
+import '../flashly.dart';
 
-Future<T?> showAlert<T>(
-  String title, {
-  String? description,
-  String? negativeTitle,
-  String? positiveTitle,
-  AlertState? state = AlertState.success,
-  bool isDestructive = false,
-  bool asLoader = false,
-  VoidCallback? onNegative,
-  int? closeLoaderAfterSecs,
-  Color? actionButtonColor,
-  Future<void> Function()? onPositive,
-  bool enableHaptics = false,
-  bool enableSound = false,
-}) async {
-  if (!asLoader) {
-    if (enableHaptics) haptics();
-    if (enableSound) playSound(state == AlertState.error);
-  }
-
-  return await _showDialog<T>(
-    title,
-    description: description,
-    negativeTitle: negativeTitle,
-    positiveTitle: positiveTitle,
-    isDestructive: isDestructive,
-    onNegative: onNegative,
-    onPositive: onPositive,
-    asLoader: asLoader,
-    closeLoaderAfterSecs: closeLoaderAfterSecs,
-    actionButtonColor: actionButtonColor,
-  );
-}
-
-Future<T?> _showDialog<T>(
+Widget _buildAlertContent(
   String title, {
   String? description,
   String? negativeTitle,
@@ -57,11 +17,11 @@ Future<T?> _showDialog<T>(
   int? closeLoaderAfterSecs,
   Color? actionButtonColor,
   Future<void> Function()? onPositive,
-}) async {
+}) {
   bool showButton = false;
   bool timerStarted = false;
 
-  Widget buildChild(BuildContext context) => AnimatedSize(
+  return AnimatedSize(
     duration: Duration(milliseconds: 500),
     curve: Curves.easeInOut,
     child: Padding(
@@ -92,7 +52,19 @@ Future<T?> _showDialog<T>(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    loader(),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 30, height: 30,
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcATop),
+                        child: Transform.scale(
+                          scale: 1.2,
+                          child: CircularProgressIndicator.adaptive(
+                            valueColor: AlwaysStoppedAnimation(Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: Txt(
                         title,
@@ -132,24 +104,38 @@ Future<T?> _showDialog<T>(
                 children: [
                   if (!asLoader)
                     Expanded(
-                      child: AlertActionButton(
-                        text: negativeTitle ?? 'Cancelar',
-                        color: actionButtonColor,
+                      child: CupertinoButton.filled(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        borderRadius: BorderRadius.circular(26),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .07),
                         onPressed: () {
                           Navigator.pop(Flashly.context);
                           if (onNegative != null) onNegative();
                         },
+                        child: Txt(
+                          negativeTitle ?? 'Cancelar', 
+                          fontSize: 17,
+                          color: isDestructive ? CupertinoColors.destructiveRed : null,
+                          fontWeight: FontWeight.w700,
+                        ), 
                       ),
                     ),
                   if (positiveTitle != null && !asLoader)
                     Expanded(
-                      child: AlertActionButton(
-                        text: positiveTitle,
-                        color: isDestructive ? CupertinoColors.destructiveRed : actionButtonColor,
+                      child: CupertinoButton.filled(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        borderRadius: BorderRadius.circular(26),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .07),
                         onPressed: () {
                           Navigator.pop(Flashly.context);
                           if (onPositive != null) onPositive();
                         },
+                        child: Txt(
+                          positiveTitle, 
+                          fontSize: 17,
+                          color: isDestructive ? CupertinoColors.destructiveRed : actionButtonColor,
+                          fontWeight: FontWeight.w700,
+                        ), 
                       ),
                     ),
                     if (asLoader) Expanded(
@@ -161,13 +147,20 @@ Future<T?> _showDialog<T>(
                           maintainSize: false,
                           maintainAnimation: true,
                           maintainState: true,
-                          child: AlertActionButton(
-                            text: positiveTitle!,
-                            color: isDestructive ? CupertinoColors.destructiveRed : null,
+                          child: CupertinoButton.filled(
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            borderRadius: BorderRadius.circular(26),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .07),
                             onPressed: () {
                               Navigator.pop(Flashly.context);
                               if (onPositive != null) onPositive();
                             },
+                            child: Txt(
+                              positiveTitle!, 
+                              fontSize: 17,
+                              color: isDestructive ? CupertinoColors.destructiveRed : null,
+                              fontWeight: FontWeight.w700,
+                            ), 
                           ),
                         ),
                       ),
@@ -180,72 +173,47 @@ Future<T?> _showDialog<T>(
       ),
     ),
   );
-
-  return showDialog<T>(
-    context: Flashly.context,
-    barrierDismissible: false,
-    barrierColor: Colors.black26,
-    builder: (context) => Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List<Widget>.generate(
-        1, (index) => _AlertContainer(
-          asLoader: asLoader, 
-          child: buildChild(context),
-        ),
-      ),
-    ),
-  );
 }
 
-class _AlertContainer extends StatelessWidget {
-  final bool asLoader;
-  final Widget child;
-
-  const _AlertContainer({
-    required this.asLoader, 
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final content = ConstrainedBox(
+@Preview(name: 'Alert')
+Widget alertPreview() {
+  return MaterialApp(
+    home: Scaffold(
+      backgroundColor: Colors.black,
+      body: ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 320, maxHeight: 300),
       child: Dialog(
         elevation: 0,
         insetPadding: EdgeInsets.zero,
         backgroundColor: Colors.transparent,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(Platform.isIOS ? 26 : 20),
+          borderRadius: BorderRadius.circular(26),
           child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: Platform.isIOS ? 20 : 3, 
-              sigmaY: Platform.isIOS ? 20 : 3
-            ),
+            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 400),
               curve: Curves.easeOutCubic,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Platform.isIOS ? 26 : 20),
-                gradient: Platform.isIOS ? LinearGradient(
+                borderRadius: BorderRadius.circular(26),
+                gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Theme.of(context).cardColor.withValues(alpha: 0.25),
-                    Theme.of(context).cardColor.withValues(alpha: 0.15),
-                    Theme.of(context).cardColor.withValues(alpha: 0.08),
-                    Theme.of(context).cardColor.withValues(alpha: 0.12),
+                    Colors.white.withValues(alpha: 0.25),
+                    Colors.white.withValues(alpha: 0.15),
+                    Colors.white.withValues(alpha: 0.08),
+                    Colors.white.withValues(alpha: 0.12),
                   ],
                   stops: [0.0, 0.3, 0.7, 1.0],
-                ) : null,
-                color: Platform.isIOS ? null : Theme.of(Flashly.context).cardColor,
-                border: Platform.isIOS ? Border.all(
+                ),
+                color: null,
+                border: Border.all(
                   width: .6,
-                  color: Theme.of(context).cardColor.withValues(alpha: 0.4),
-                ) : null,
-                boxShadow: Platform.isIOS ? [
+                  color: Colors.white.withValues(alpha: 0.4),
+                ),
+                boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).cardColor.withValues(alpha: 0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                     offset: Offset(0, 1),
                     blurRadius: 0,
                     spreadRadius: 0,
@@ -257,38 +225,40 @@ class _AlertContainer extends StatelessWidget {
                     blurRadius: 32,
                     spreadRadius: -8,
                   ),
-                ] : null,
+                ],
               ),
               child: Container(
-                decoration: Platform.isIOS ? BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(26),
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Theme.of(context).cardColor.withValues(alpha: 0.08),
-                      Theme.of(context).cardColor.withValues(alpha: 0.02),
+                      Colors.white.withValues(alpha: 0.08),
+                      Colors.white.withValues(alpha: 0.02),
                     ],
                   ),
-                ) : null,
+                ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(Platform.isIOS ? 26 : 20),
+                  borderRadius: BorderRadius.circular(26),
                   child: BackdropFilter(
-                    filter: Platform.isIOS 
-                      ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
-                      : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                    filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                     child: Container(
-                      decoration: Platform.isIOS ? BoxDecoration(
+                      decoration: BoxDecoration(
                         gradient: RadialGradient(
                           center: Alignment.topLeft,
                           radius: 2.0,
                           colors: [
-                            Theme.of(context).cardColor.withValues(alpha: 0.03),
+                            Colors.white.withValues(alpha: 0.03),
                             Colors.transparent,
                           ],
                         ),
-                      ) : null,
-                      child: child,
+                      ),
+                      child: _buildAlertContent(
+                        'Alert Title',
+                        // asLoader: true,
+                        // positiveTitle: 'Fechar'
+                      ),
                     ),
                   ),
                 ),
@@ -297,9 +267,7 @@ class _AlertContainer extends StatelessWidget {
           ),
         ),
       ),
-    );
-
-    if (asLoader) return Center(child: content);
-    return content;
-  }
+    ),
+    ),
+  );
 }
