@@ -40,11 +40,11 @@ Widget buildToasPreviewsInternal() {
                     Flexible(
                       fit: FlexFit.loose,
                       child: Txt(
-                        'Copiado para transferência',
+                        'Copiado para transferência. Por favor aguardar por mais dados até que o usuário possa colar.',
                         maxLines: 4,
                         color: Colors.white, 
                         fontSize: 13, 
-                        fontWeight: FontWeight.w700, 
+                        fontWeight: FontWeight.w600, 
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

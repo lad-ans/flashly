@@ -55,7 +55,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _showSnackBar(
             maxLines: 4,
             color: Colors.white, 
             fontSize: 13, 
-            fontWeight: FontWeight.w700, 
+            fontWeight: FontWeight.w600, 
             overflow: TextOverflow.ellipsis,
           ),
         ),
