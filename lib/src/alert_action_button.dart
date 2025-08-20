@@ -32,7 +32,7 @@ class AlertActionButton extends StatelessWidget {
     if (Platform.isIOS) {
       return CupertinoButton.filled(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(30),
         color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .07),
         onPressed: onPressed,
         child: child, 

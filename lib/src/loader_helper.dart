@@ -49,4 +49,8 @@ void showLoaderAlert({
   );
 }
 
-void closeLoaderAlert() => Navigator.pop(Flashly.context);
+void closeLoaderAlert() {
+  if (Navigator.canPop(Flashly.context)) {
+    Navigator.pop(Flashly.context);
+  }
+} 

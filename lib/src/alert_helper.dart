@@ -216,7 +216,7 @@ class _AlertContainer extends StatelessWidget {
         insetPadding: EdgeInsets.zero,
         backgroundColor: Colors.transparent,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(Platform.isIOS ? 26 : 20),
+          borderRadius: BorderRadius.circular(Platform.isIOS ? 30 : 20),
           child: BackdropFilter(
             filter: ImageFilter.blur(
               sigmaX: Platform.isIOS ? 20 : 3, 
@@ -226,7 +226,7 @@ class _AlertContainer extends StatelessWidget {
               duration: Duration(milliseconds: 400),
               curve: Curves.easeOutCubic,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Platform.isIOS ? 26 : 20),
+                borderRadius: BorderRadius.circular(Platform.isIOS ? 30 : 20),
                 gradient: Platform.isIOS ? LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -272,7 +272,7 @@ class _AlertContainer extends StatelessWidget {
                   ),
                 ) : null,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(Platform.isIOS ? 26 : 20),
+                  borderRadius: BorderRadius.circular(Platform.isIOS ? 30 : 20),
                   child: BackdropFilter(
                     filter: Platform.isIOS 
                       ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
