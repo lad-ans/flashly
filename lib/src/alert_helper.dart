@@ -61,20 +61,6 @@ Future<T?> _showDialog<T>(
   bool showButton = false;
   bool timerStarted = false;
 
-  Widget buildLoaderActionButtonContainer(Widget child) {
-    return AnimatedScale(
-      scale: showButton ? 1.0 : .5,
-      duration: const Duration(milliseconds: 500),
-      child: Visibility(
-        visible: showButton && positiveTitle != null,
-        maintainSize: false,
-        maintainAnimation: true,
-        maintainState: true,
-        child: child,
-      ),
-    );
-  }
-
   Widget buildDefaultActionButton() {
     return AlertActionButton(
       text: negativeTitle ?? 'Cancelar',
@@ -157,11 +143,22 @@ Future<T?> _showDialog<T>(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: asLoader
-                      ? buildLoaderActionButtonContainer(buildDefaultActionButton())
-                      : buildDefaultActionButton(),
-                  ),
+                  if (asLoader) Expanded(
+                      child: AnimatedScale(
+                        scale: showButton ? 1.0 : .5,
+                        duration: const Duration(milliseconds: 500),
+                        child: Visibility(
+                          visible: showButton && positiveTitle != null,
+                          maintainSize: false,
+                          maintainAnimation: true,
+                          maintainState: true,
+                          child: buildDefaultActionButton(),
+                        ),
+                      ),
+                    )
+                  else
+                    Expanded(child: buildDefaultActionButton()),
+
                   if (positiveTitle != null && !asLoader)
                     Expanded(
                       child: AlertActionButton(
