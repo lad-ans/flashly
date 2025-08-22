@@ -42,10 +42,9 @@ void showLoaderAlert({
     placeholdr, 
     asLoader: true, 
     isDestructive: true,
-    positiveTitle: 'Fechar',
+    negativeTitle: 'Fechar',
     closeLoaderAfterSecs: closeLoaderAfterSecs ?? 45,
     actionButtonColor: actionButtonColor,
-    onPositive: () async {},
   );
 }
 

@@ -61,6 +61,33 @@ Future<T?> _showDialog<T>(
   bool showButton = false;
   bool timerStarted = false;
 
+  Widget buildLoaderActionButtonContainer(Widget child) {
+    return AnimatedScale(
+      scale: showButton ? 1.0 : .5,
+      duration: const Duration(milliseconds: 500),
+      child: Visibility(
+        visible: showButton && positiveTitle != null,
+        maintainSize: false,
+        maintainAnimation: true,
+        maintainState: true,
+        child: child,
+      ),
+    );
+  }
+
+  Widget buildDefaultActionButton() {
+    return AlertActionButton(
+      text: negativeTitle ?? 'Cancelar',
+      color: positiveTitle == null && isDestructive 
+        ? CupertinoColors.destructiveRed 
+        : actionButtonColor,
+      onPressed: () {
+        Navigator.pop(Flashly.context);
+        if (onNegative != null) onNegative();
+      },
+    );
+  }
+
   Widget buildChild(BuildContext context) => AnimatedSize(
     duration: Duration(milliseconds: 500),
     curve: Curves.easeInOut,
@@ -130,17 +157,11 @@ Future<T?> _showDialog<T>(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (!asLoader)
-                    Expanded(
-                      child: AlertActionButton(
-                        text: negativeTitle ?? 'Cancelar',
-                        color: actionButtonColor,
-                        onPressed: () {
-                          Navigator.pop(Flashly.context);
-                          if (onNegative != null) onNegative();
-                        },
-                      ),
-                    ),
+                  Expanded(
+                    child: asLoader
+                      ? buildLoaderActionButtonContainer(buildDefaultActionButton())
+                      : buildDefaultActionButton(),
+                  ),
                   if (positiveTitle != null && !asLoader)
                     Expanded(
                       child: AlertActionButton(
@@ -150,26 +171,6 @@ Future<T?> _showDialog<T>(
                           Navigator.pop(Flashly.context);
                           if (onPositive != null) onPositive();
                         },
-                      ),
-                    ),
-                    if (asLoader) Expanded(
-                      child: AnimatedScale(
-                        scale: showButton ? 1.0 : .5,
-                        duration: const Duration(milliseconds: 500),
-                        child: Visibility(
-                          visible: showButton && positiveTitle != null,
-                          maintainSize: false,
-                          maintainAnimation: true,
-                          maintainState: true,
-                          child: AlertActionButton(
-                            text: positiveTitle!,
-                            color: isDestructive ? CupertinoColors.destructiveRed : null,
-                            onPressed: () {
-                              Navigator.pop(Flashly.context);
-                              if (onPositive != null) onPositive();
-                            },
-                          ),
-                        ),
                       ),
                     ),
                 ],
