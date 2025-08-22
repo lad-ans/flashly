@@ -148,7 +148,7 @@ Future<T?> _showDialog<T>(
                         scale: showButton ? 1.0 : .5,
                         duration: const Duration(milliseconds: 500),
                         child: Visibility(
-                          visible: showButton && positiveTitle != null,
+                          visible: showButton,
                           maintainSize: false,
                           maintainAnimation: true,
                           maintainState: true,
