@@ -24,16 +24,16 @@ class AlertActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = Txt(
       text, 
-      fontSize: 17,
+      fontSize: 16,
       color: color ?? (Platform.isIOS ? Theme.of(context).colorScheme.onSurface : Theme.of(context).primaryColor),
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     );
 
     if (Platform.isIOS) {
       return CupertinoButton.filled(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         borderRadius: BorderRadius.circular(30),
-        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .07),
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .06),
         onPressed: onPressed,
         child: child, 
       );
@@ -46,8 +46,8 @@ class AlertActionButton extends StatelessWidget {
         shadowColor: Colors.transparent,
         overlayColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: .04),
         surfaceTintColor: Colors.transparent,
-        backgroundColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: .07),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+        backgroundColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: .06),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
       ), 
       child: child,
