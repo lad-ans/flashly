@@ -127,7 +127,7 @@ Future<T?> _showDialog<T>(
                         title, 
                         fontWeight: FontWeight.bold, 
                         fontSize: 17,
-                        color: isDestructive ? CupertinoColors.destructiveRed : null,
+                        // color: isDestructive ? CupertinoColors.destructiveRed : null,
                       ),
                     if (description != null)
                       Txt(
