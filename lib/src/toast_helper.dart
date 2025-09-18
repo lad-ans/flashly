@@ -39,13 +39,13 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _showSnackBar(
       children: [
         Icon(
           state == ToastState.error 
-            ? CupertinoIcons.exclamationmark_circle 
+            ? CupertinoIcons.exclamationmark_circle_fill
             : state == ToastState.info 
-                ? CupertinoIcons.info_circle 
-                : CupertinoIcons.check_mark_circled, 
+                ? CupertinoIcons.info_circle_fill
+                : CupertinoIcons.check_mark_circled_solid, 
           color: state == ToastState.error 
-            ? red 
-            : state == ToastState.info ? amber : green, 
+            ? Colors.red.shade300 
+            : state == ToastState.info ? Colors.amber.shade300 : Colors.green.shade300, 
           size: 20,
         ),
         Flexible(
@@ -55,6 +55,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _showSnackBar(
             maxLines: 4,
             color: Colors.white, 
             fontSize: 13,
+            fontWeight: FontWeight.w600,
             overflow: TextOverflow.ellipsis,
           ),
         ),
