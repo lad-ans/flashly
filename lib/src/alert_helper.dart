@@ -25,6 +25,9 @@ Future<T?> showAlert<T>(
   Future<void> Function()? onPositive,
   bool enableHaptics = false,
   bool enableSound = false,
+  bool success = false,
+  bool info = false,
+  bool error = false,
 }) async {
   if (!asLoader) {
     if (enableHaptics) haptics();
@@ -41,6 +44,9 @@ Future<T?> showAlert<T>(
     onPositive: onPositive,
     asLoader: asLoader,
     closeLoaderAfterSecs: closeLoaderAfterSecs,
+    success: success,
+    info: info,
+    error: error,
   );
 }
 
