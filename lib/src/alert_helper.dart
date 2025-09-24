@@ -96,8 +96,8 @@ Future<T?> _showDialog<T>(
       
           return Column(
             spacing: (asLoader && showButton) || !asLoader ? 16 : 0,
-            mainAxisSize: .min,
-            crossAxisAlignment: asLoader ? .start : .center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: asLoader ? CrossAxisAlignment.start : CrossAxisAlignment.center,
             children: [
               if (success)
                 Icon(
