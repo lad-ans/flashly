@@ -22,7 +22,6 @@ Future<T?> showAlert<T>(
   bool asLoader = false,
   VoidCallback? onNegative,
   int? closeLoaderAfterSecs,
-  Color? actionButtonColor,
   Future<void> Function()? onPositive,
   bool enableHaptics = false,
   bool enableSound = false,
@@ -42,7 +41,6 @@ Future<T?> showAlert<T>(
     onPositive: onPositive,
     asLoader: asLoader,
     closeLoaderAfterSecs: closeLoaderAfterSecs,
-    actionButtonColor: actionButtonColor,
   );
 }
 
@@ -53,9 +51,11 @@ Future<T?> _showDialog<T>(
   String? positiveTitle,
   bool isDestructive = false,
   bool asLoader = false,
+  bool success = false,
+  bool info = false,
+  bool error = false,
   VoidCallback? onNegative,
   int? closeLoaderAfterSecs,
-  Color? actionButtonColor,
   Future<void> Function()? onPositive,
 }) async {
   bool showButton = false;
@@ -64,9 +64,7 @@ Future<T?> _showDialog<T>(
   Widget buildDefaultActionButton() {
     return AlertActionButton(
       text: negativeTitle ?? 'Cancelar',
-      color: positiveTitle == null && isDestructive 
-        ? CupertinoColors.destructiveRed 
-        : actionButtonColor,
+      isDestructive: isDestructive,
       onPressed: () {
         Navigator.pop(Flashly.context);
         if (onNegative != null) onNegative();
@@ -92,9 +90,27 @@ Future<T?> _showDialog<T>(
       
           return Column(
             spacing: (asLoader && showButton) || !asLoader ? 16 : 0,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: .min,
+            crossAxisAlignment: asLoader ? .start : .center,
             children: [
+              if (success)
+                Icon(
+                  CupertinoIcons.check_mark_circled_solid, 
+                  color: CupertinoColors.activeGreen, 
+                  size: 50,
+                )
+              else if (error)
+                Icon(
+                  CupertinoIcons.check_mark_circled_solid, 
+                  color: CupertinoColors.destructiveRed, 
+                  size: 50,
+                )
+              else if (info)
+                Icon(
+                  CupertinoIcons.check_mark_circled_solid, 
+                  color: CupertinoColors.activeOrange, 
+                  size: 50,
+                ),
               if (asLoader) Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
@@ -161,7 +177,7 @@ Future<T?> _showDialog<T>(
                     Expanded(
                       child: AlertActionButton(
                         text: positiveTitle,
-                        color: isDestructive ? CupertinoColors.destructiveRed : actionButtonColor,
+                        isDestructive: isDestructive,
                         onPressed: () {
                           Navigator.pop(Flashly.context);
                           if (onPositive != null) onPositive();

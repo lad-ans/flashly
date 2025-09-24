@@ -11,21 +11,26 @@ class AlertActionButton extends StatelessWidget {
     required this.text,
     this.fontSize,
     this.fontWeight,
-    this.color,
+    this.isDestructive = false,
   });
 
   final VoidCallback? onPressed;
   final FontWeight? fontWeight;
   final String text;
   final double? fontSize;
-  final Color? color;
+  final bool isDestructive;
 
   @override
   Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+    final primaryColor = Theme.of(context).primaryColor;
+
     final child = Txt(
       text, 
       fontSize: 16,
-      color: color ?? (Platform.isIOS ? Theme.of(context).colorScheme.onSurface : Theme.of(context).primaryColor),
+      color: isDestructive 
+        ? CupertinoColors.destructiveRed 
+        : (Platform.isIOS ? onSurface : primaryColor),
       fontWeight: FontWeight.w600,
     );
 
@@ -33,7 +38,7 @@ class AlertActionButton extends StatelessWidget {
       return CupertinoButton.filled(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         borderRadius: BorderRadius.circular(30),
-        color: (color ?? Theme.of(context).colorScheme.onSurface).withValues(alpha: .1),
+        color: onSurface.withValues(alpha: .1),
         onPressed: onPressed,
         child: child, 
       );
@@ -45,8 +50,8 @@ class AlertActionButton extends StatelessWidget {
         elevation: 0,
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        overlayColor: (color ?? Theme.of(context).colorScheme.onSurface).withValues(alpha: .04),
-        backgroundColor: (color ?? Theme.of(context).colorScheme.onSurface).withValues(alpha: .1),
+        overlayColor: (isDestructive ? Colors.red : primaryColor).withValues(alpha: .04),
+        backgroundColor: (isDestructive ? Colors.red : primaryColor).withValues(alpha: .1),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
       ), 
