@@ -70,7 +70,7 @@ Future<T?> _showDialog<T>(
   Widget buildDefaultActionButton() {
     return AlertActionButton(
       text: negativeTitle ?? 'Cancelar',
-      isDestructive: isDestructive,
+      isDestructive: positiveTitle == null && isDestructive,
       onPressed: () {
         Navigator.pop(Flashly.context);
         if (onNegative != null) onNegative();
