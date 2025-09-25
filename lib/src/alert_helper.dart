@@ -107,13 +107,13 @@ Future<T?> _showDialog<T>(
                 )
               else if (error)
                 Icon(
-                  CupertinoIcons.check_mark_circled_solid, 
+                  CupertinoIcons.xmark_circle_fill, 
                   color: CupertinoColors.destructiveRed, 
                   size: 50,
                 )
               else if (info)
                 Icon(
-                  CupertinoIcons.check_mark_circled_solid, 
+                  CupertinoIcons.exclamationmark_circle_fill, 
                   color: CupertinoColors.activeOrange, 
                   size: 50,
                 ),
