@@ -6,9 +6,14 @@ import 'package:flutter/material.dart';
 
 import 'alert_helper.dart';
 
-Widget loader({double? size, Color? color, Key? key}) {
+Widget loader({
+  double? size, 
+  Color? color, 
+  Key? key, 
+  double? scaleFactor,
+}) {
   final indicator = Transform.scale(
-    scale: Platform.isIOS ? 1.2 : 1,
+    scale: scaleFactor ?? (Platform.isIOS ? 1.2 : 1),
     child: CircularProgressIndicator.adaptive(
       valueColor: AlwaysStoppedAnimation(color),
     ),
