@@ -17,7 +17,7 @@ Future<T?> showAlert<T>(
   String? description,
   String? negativeTitle,
   String? positiveTitle,
-  AlertState? state = AlertState.success,
+  AlertState? state,
   bool isDestructive = false,
   bool asLoader = false,
   VoidCallback? onNegative,
@@ -44,9 +44,7 @@ Future<T?> showAlert<T>(
     onPositive: onPositive,
     asLoader: asLoader,
     closeLoaderAfterSecs: closeLoaderAfterSecs,
-    success: success,
-    info: info,
-    error: error,
+    state: state,
   );
 }
 
@@ -57,12 +55,10 @@ Future<T?> _showDialog<T>(
   String? positiveTitle,
   bool isDestructive = false,
   bool asLoader = false,
-  bool success = false,
-  bool info = false,
-  bool error = false,
   VoidCallback? onNegative,
   int? closeLoaderAfterSecs,
   Future<void> Function()? onPositive,
+  AlertState? state,
 }) async {
   bool showButton = false;
   bool timerStarted = false;
@@ -99,19 +95,19 @@ Future<T?> _showDialog<T>(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: asLoader ? CrossAxisAlignment.start : CrossAxisAlignment.center,
             children: [
-              if (success)
+              if (state == AlertState.success)
                 Icon(
                   CupertinoIcons.check_mark_circled_solid, 
                   color: CupertinoColors.activeGreen, 
                   size: 50,
                 )
-              else if (error)
+              else if (state == AlertState.error)
                 Icon(
                   CupertinoIcons.xmark_circle_fill, 
                   color: CupertinoColors.destructiveRed, 
                   size: 50,
                 )
-              else if (info)
+              else if (state == AlertState.info)
                 Icon(
                   CupertinoIcons.exclamationmark_circle_fill, 
                   color: CupertinoColors.activeOrange, 
