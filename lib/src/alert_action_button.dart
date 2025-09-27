@@ -29,7 +29,7 @@ class AlertActionButton extends StatelessWidget {
       text, 
       fontSize: 16,
       color: isDestructive 
-        ? CupertinoColors.destructiveRed 
+        ? Colors.red.shade800 
         : (Platform.isIOS ? onSurface : primaryColor),
       fontWeight: FontWeight.w600,
     );
@@ -50,8 +50,8 @@ class AlertActionButton extends StatelessWidget {
         elevation: 0,
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        overlayColor: (isDestructive ? Colors.red : primaryColor).withValues(alpha: .04),
-        backgroundColor: (isDestructive ? Colors.red : primaryColor).withValues(alpha: .1),
+        overlayColor: (isDestructive ? Colors.red.shade800 : primaryColor).withValues(alpha: .04),
+        backgroundColor: (isDestructive ? Colors.red.shade800 : primaryColor).withValues(alpha: .1),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
       ), 
