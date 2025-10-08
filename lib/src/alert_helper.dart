@@ -28,6 +28,7 @@ Future<T?> showAlert<T>(
   bool success = false,
   bool info = false,
   bool error = false,
+  Color? infoIconColor,
 }) async {
   if (!asLoader) {
     if (enableHaptics) haptics();
@@ -45,6 +46,7 @@ Future<T?> showAlert<T>(
     asLoader: asLoader,
     closeLoaderAfterSecs: closeLoaderAfterSecs,
     state: state,
+    infoIconColor: infoIconColor,
   );
 }
 
@@ -59,6 +61,7 @@ Future<T?> _showDialog<T>(
   int? closeLoaderAfterSecs,
   Future<void> Function()? onPositive,
   AlertState? state,
+  Color? infoIconColor,
 }) async {
   bool showButton = false;
   bool timerStarted = false;
@@ -110,7 +113,7 @@ Future<T?> _showDialog<T>(
               else if (state == AlertState.info)
                 Icon(
                   CupertinoIcons.exclamationmark_circle_fill, 
-                  color: CupertinoColors.activeOrange, 
+                  color: infoIconColor ?? CupertinoColors.activeOrange, 
                   size: 50,
                 ),
               if (asLoader) Padding(
