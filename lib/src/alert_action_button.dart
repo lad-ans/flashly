@@ -23,14 +23,13 @@ class AlertActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final onSurface = Theme.of(context).colorScheme.onSurface;
-    final primaryColor = Theme.of(context).primaryColor;
 
     final child = Txt(
       text, 
       fontSize: 16,
       color: isDestructive 
         ? Colors.red.shade800 
-        : (Platform.isIOS ? onSurface : primaryColor),
+        : onSurface,
       fontWeight: FontWeight.w600,
     );
 
