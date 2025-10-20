@@ -145,6 +145,8 @@ Future<T?> _showDialog<T>(
                         title, 
                         fontWeight: FontWeight.bold, 
                         fontSize: 17,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         color: description != null && isDestructive ? Colors.red.shade800 : null,
                       ),
                     if (description != null)
@@ -152,6 +154,8 @@ Future<T?> _showDialog<T>(
                         description, 
                         color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .6), 
                         fontSize: 15, 
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.w600, 
                       ),
                   ],
