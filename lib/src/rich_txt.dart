@@ -66,6 +66,7 @@ class RichTxt extends StatelessWidget {
               fontWeight: fontWeight ?? fontWeight1,
               fontFamily: fontFamily1 ?? fontFamily,
               decoration: decoration ?? decoration1,
+              decorationColor: color ?? color1 ?? Theme.of(context).colorScheme.onSurface,
             ),
           ),
           TextSpan(
@@ -78,6 +79,7 @@ class RichTxt extends StatelessWidget {
               fontWeight: fontWeight ?? fontWeight2,
               fontFamily: fontFamily2 ?? fontFamily,
               decoration: decoration ?? decoration2,
+              decorationColor: color ?? color2 ?? Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],
