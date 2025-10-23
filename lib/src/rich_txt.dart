@@ -58,7 +58,7 @@ class RichTxt extends StatelessWidget {
         children: [
           TextSpan(
             text: text1,
-            recognizer: TapGestureRecognizer()..onTap = onTap2,
+            recognizer: TapGestureRecognizer()..onTap = onTap1,
             style: TextStyle(
               overflow: textOverflow1,
               color: color ?? color1 ?? Theme.of(context).colorScheme.onSurface,
