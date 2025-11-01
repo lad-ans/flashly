@@ -17,6 +17,7 @@ Future<T?> showAlert<T>(
   String? description,
   String? negativeTitle,
   String? positiveTitle,
+  BuildContext? context,
   AlertState? state,
   bool isDestructive = false,
   bool asLoader = false,
@@ -47,6 +48,7 @@ Future<T?> showAlert<T>(
     closeLoaderAfterSecs: closeLoaderAfterSecs,
     state: state,
     infoIconColor: infoIconColor,
+    context: context,
   );
 }
 
@@ -55,6 +57,7 @@ Future<T?> _showDialog<T>(
   String? description,
   String? negativeTitle,
   String? positiveTitle,
+  BuildContext? context,
   bool isDestructive = false,
   bool asLoader = false,
   VoidCallback? onNegative,
@@ -203,7 +206,7 @@ Future<T?> _showDialog<T>(
   );
 
   return showDialog<T>(
-    context: Flashly.context,
+    context: context ?? Flashly.context,
     barrierDismissible: false,
     barrierColor: Colors.black26,
     builder: (context) => Column(

@@ -40,10 +40,12 @@ void showTimingLoaderAlert(
 void showLoaderAlert({
   String? placeholder,
   int? closeLoaderAfterSecs,
+  BuildContext? context,
 }) {
   final placeholdr = placeholder != null ? '$placeholder...' : '';
   showAlert(
     placeholdr, 
+    context: context,
     asLoader: true, 
     isDestructive: true,
     negativeTitle: 'Fechar',
@@ -51,8 +53,8 @@ void showLoaderAlert({
   );
 }
 
-void closeLoaderAlert() {
-  if (Navigator.canPop(Flashly.context)) {
-    Navigator.pop(Flashly.context);
+void closeLoaderAlert([BuildContext? context]) {
+  if (Navigator.canPop(context ?? Flashly.context)) {
+    Navigator.pop(context ?? Flashly.context);
   }
 } 
