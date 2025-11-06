@@ -7,12 +7,8 @@ class Flashly {
   static BuildContext get context => navigatorKey.currentState!.context;
 }
 
-Future<void> playAudio(String sound) async {
-  final player = AudioPlayer();
-
-  await player.setVolume(1);
-  await player.setSourceAsset(sound);
-  await player.resume();
+Future<void> playAudio(String path) async {
+  await AudioPlayer().play(AssetSource(path));
 }
 
 Future<void> playAlert({
