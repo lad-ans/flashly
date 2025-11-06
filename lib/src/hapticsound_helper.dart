@@ -23,7 +23,7 @@ void haptics({
 Future<void> playSound([bool error = false]) async {
   await playAlert(
     isError: error,
-    path: 'audio/success.mp3',
-    errorPath: error ? 'audio/error.mp3' : null,
+    path: 'success.mp3',
+    errorPath: error ? 'error.mp3' : null,
   );
 }
