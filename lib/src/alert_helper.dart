@@ -155,11 +155,10 @@ Future<T?> _showDialog<T>(
                     if (description != null)
                       Txt(
                         description, 
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .6), 
-                        fontSize: 15, 
+                        color: Theme.of(context).colorScheme.onSurface, 
+                        fontSize: 14, 
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.w600, 
                       ),
                   ],
                 ),

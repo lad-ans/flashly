@@ -39,10 +39,10 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _showSnackBar(
       children: [
         Icon(
           state == ToastState.error 
-            ? CupertinoIcons.exclamationmark_circle_fill
+            ? CupertinoIcons.exclamationmark_circle
             : state == ToastState.info 
-                ? CupertinoIcons.info_circle_fill
-                : CupertinoIcons.check_mark_circled_solid, 
+                ? CupertinoIcons.info_circle
+                : CupertinoIcons.check_mark_circled, 
           color: state == ToastState.error 
             ? Colors.red.shade300 
             : state == ToastState.info ? Colors.amber.shade300 : Colors.green.shade300, 
