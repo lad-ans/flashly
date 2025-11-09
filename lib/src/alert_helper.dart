@@ -141,7 +141,7 @@ Future<T?> _showDialog<T>(
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 2,
+                  spacing: 6,
                   children: [
                     if (title.isNotEmpty) 
                       Txt(
