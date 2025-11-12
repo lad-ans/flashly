@@ -156,7 +156,7 @@ Future<T?> _showDialog<T>(
                       Txt(
                         description, 
                         color: Theme.of(context).colorScheme.onSurface, 
-                        fontSize: 14, 
+                        fontSize: 15, 
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                       ),
