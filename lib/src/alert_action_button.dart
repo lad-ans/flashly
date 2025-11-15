@@ -31,9 +31,9 @@ class AlertActionButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius ?? 20),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
-          end: Alignment.bottomRight,
+          end: Alignment.bottomCenter,
           colors: [
-            Theme.of(context).cardColor.withValues(alpha: .5),
+            Theme.of(context).cardColor.withValues(alpha: .1),
             isDestructive ? destructiveRed : Theme.of(context).primaryColor,
           ],
         ),
@@ -61,7 +61,7 @@ class AlertActionButton extends StatelessWidget {
         child: CupertinoButton.filled(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           borderRadius: BorderRadius.circular(30),
-          color: isDestructive ? destructiveRed : primaryColor,
+          color: Colors.transparent,
           onPressed: onPressed,
           child: child, 
         ),
@@ -77,7 +77,7 @@ class AlertActionButton extends StatelessWidget {
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           overlayColor: materialBackgroundColor.withValues(alpha: .04),
-          backgroundColor: materialBackgroundColor,
+          backgroundColor: Colors.transparent,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
         ), 
