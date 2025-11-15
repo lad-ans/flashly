@@ -21,6 +21,25 @@ class AlertActionButton extends StatelessWidget {
   final double? fontSize;
   final bool isDestructive;
 
+  Widget _buildButtonDecoration(
+    BuildContext context, {
+    required Widget child,
+    double? radius,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius ?? 20),
+        gradient: LinearGradient(
+          colors: [
+            Theme.of(context).cardColor.withValues(alpha: .2),
+            isDestructive ? destructiveRed : Theme.of(context).primaryColor,
+          ],
+        ),
+      ),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
@@ -34,27 +53,34 @@ class AlertActionButton extends StatelessWidget {
     );
 
     if (Platform.isIOS) {
-      return CupertinoButton.filled(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        borderRadius: BorderRadius.circular(30),
-        color: isDestructive ? destructiveRed : primaryColor,
-        onPressed: onPressed,
-        child: child, 
+      return _buildButtonDecoration(
+        context,
+        radius: 30,
+        child: CupertinoButton.filled(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          borderRadius: BorderRadius.circular(30),
+          color: isDestructive ? destructiveRed : primaryColor,
+          onPressed: onPressed,
+          child: child, 
+        ),
       );
     }
 
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
-        shadowColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        overlayColor: materialBackgroundColor.withValues(alpha: .04),
-        backgroundColor: materialBackgroundColor,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
-      ), 
-      child: child,
+    return _buildButtonDecoration(
+      context,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          overlayColor: materialBackgroundColor.withValues(alpha: .04),
+          backgroundColor: materialBackgroundColor,
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
+        ), 
+        child: child,
+      ),
     );
   }
 }
