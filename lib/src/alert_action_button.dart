@@ -31,7 +31,7 @@ class AlertActionButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius ?? 20),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          end: Alignment.bottomRight,
           colors: [
             Theme.of(context).cardColor.withValues(alpha: .5),
             isDestructive ? destructiveRed : Theme.of(context).primaryColor,
