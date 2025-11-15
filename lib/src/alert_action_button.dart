@@ -33,7 +33,7 @@ class AlertActionButton extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Theme.of(context).cardColor.withValues(alpha: .1),
+            (isDestructive ? destructiveRed : Theme.of(context).primaryColor).withValues(alpha: .6),
             isDestructive ? destructiveRed : Theme.of(context).primaryColor,
           ],
         ),
