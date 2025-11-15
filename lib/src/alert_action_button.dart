@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flashly/src/colors.dart';
+import 'package:flashly/src/press_effect.dart';
 import 'package:flashly/src/txt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,19 +27,26 @@ class AlertActionButton extends StatelessWidget {
     required Widget child,
     double? radius,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius ?? 20),
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            (isDestructive ? destructiveRed : Theme.of(context).primaryColor).withValues(alpha: .4),
-            isDestructive ? destructiveRed : Theme.of(context).primaryColor,
-          ],
+    final backgroungColor = isDestructive 
+    ? destructiveRed 
+    : Theme.of(context).primaryColor;
+
+    return PressEffect(
+      onPressed: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius ?? 20),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              backgroungColor.withValues(alpha: .5),
+              backgroungColor,
+            ],
+          ),
         ),
+        child: child,
       ),
-      child: child,
     );
   }
 
