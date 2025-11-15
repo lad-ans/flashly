@@ -19,18 +19,14 @@ Widget loader({
     ),
   );
 
-  return Row(
-    mainAxisSize: MainAxisSize.max,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      SizedBox(
-        width: size, height: size,
-        child: color != null ? ColorFiltered(
-          colorFilter: ColorFilter.mode(color, BlendMode.srcATop),
-          child: indicator,
-        ) : indicator,
-      ),
-    ],
+  return Center(
+    child: SizedBox(
+      width: size, height: size,
+      child: color != null ? ColorFiltered(
+        colorFilter: ColorFilter.mode(color, BlendMode.srcATop),
+        child: indicator,
+      ) : indicator,
+    ),
   );
 }
 
