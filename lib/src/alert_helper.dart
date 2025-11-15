@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flashly/src/alert_action_button.dart';
+import 'package:flashly/src/colors.dart';
 import 'package:flashly/src/hapticsound_helper.dart';
 import 'package:flashly/src/loader_helper.dart';
 import 'package:flashly/src/txt.dart';
@@ -150,7 +151,7 @@ Future<T?> _showDialog<T>(
                         fontSize: 17,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        color: description != null && isDestructive ? Colors.red.shade800 : null,
+                        color: description != null && isDestructive ? destructiveRed : null,
                       ),
                     if (description != null)
                       Txt(

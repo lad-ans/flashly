@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flashly/src/colors.dart';
 import 'package:flashly/src/txt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +23,13 @@ class AlertActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onSurface = Theme.of(context).colorScheme.onSurface;
+    final primaryColor = Theme.of(context).primaryColor;
+    final materialBackgroundColor = isDestructive ? destructiveRed : primaryColor;
 
     final child = Txt(
       text, 
       fontSize: 16,
-      color: isDestructive 
-        ? Colors.red.shade800 
-        : onSurface,
+      color: Theme.of(context).cardColor,
       fontWeight: FontWeight.w600,
     );
 
@@ -37,7 +37,7 @@ class AlertActionButton extends StatelessWidget {
       return CupertinoButton.filled(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         borderRadius: BorderRadius.circular(30),
-        color: onSurface.withValues(alpha: .1),
+        color: isDestructive ? destructiveRed : primaryColor,
         onPressed: onPressed,
         child: child, 
       );
@@ -49,8 +49,8 @@ class AlertActionButton extends StatelessWidget {
         elevation: 0,
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        overlayColor: (isDestructive ? Colors.red.shade800 : onSurface).withValues(alpha: .04),
-        backgroundColor: (isDestructive ? Colors.red.shade800 : onSurface).withValues(alpha: .1),
+        overlayColor: materialBackgroundColor.withValues(alpha: .04),
+        backgroundColor: materialBackgroundColor,
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
       ), 
