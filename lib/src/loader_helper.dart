@@ -19,8 +19,8 @@ Widget loader({
     ),
   );
 
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
+  return Row(
+    mainAxisSize: MainAxisSize.max,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       SizedBox(
