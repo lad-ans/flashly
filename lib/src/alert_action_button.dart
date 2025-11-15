@@ -34,6 +34,7 @@ class AlertActionButton extends StatelessWidget {
     return PressEffect(
       onPressed: onPressed,
       child: Container(
+        height: 44,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius ?? 20),
           gradient: LinearGradient(
