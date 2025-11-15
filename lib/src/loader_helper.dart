@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'alert_helper.dart';
 
 Widget loader({
-  double? size, 
+  double? size = 24, 
   Color? color, 
   Key? key, 
   double? scaleFactor,
