@@ -13,6 +13,7 @@ class AlertActionButton extends StatelessWidget {
     required this.text,
     this.fontSize,
     this.fontWeight,
+    this.radius,
     this.isDestructive = false,
   });
 
@@ -21,11 +22,13 @@ class AlertActionButton extends StatelessWidget {
   final String text;
   final double? fontSize;
   final bool isDestructive;
+  final double? radius;
+
+  BorderRadius get _borderRadius => BorderRadius.circular(radius ?? 8);
 
   Widget _buildButtonDecoration(
     BuildContext context, {
     required Widget child,
-    double? radius,
   }) {
     final backgroungColor = isDestructive 
     ? destructiveRed 
@@ -36,12 +39,12 @@ class AlertActionButton extends StatelessWidget {
       child: Container(
         height: 44,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius ?? 20),
+          borderRadius: _borderRadius,
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              backgroungColor.withValues(alpha: .5),
+              backgroungColor.withValues(alpha: .7),
               backgroungColor,
             ],
           ),
@@ -66,10 +69,9 @@ class AlertActionButton extends StatelessWidget {
     if (Platform.isIOS) {
       return _buildButtonDecoration(
         context,
-        radius: 30,
         child: CupertinoButton.filled(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: _borderRadius,
           color: Colors.transparent,
           onPressed: onPressed,
           child: child, 
@@ -88,7 +90,7 @@ class AlertActionButton extends StatelessWidget {
           overlayColor: materialBackgroundColor.withValues(alpha: .04),
           backgroundColor: Colors.transparent,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedSuperellipseBorder(borderRadius: _borderRadius),
         ), 
         child: child,
       ),

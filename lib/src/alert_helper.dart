@@ -30,6 +30,8 @@ Future<T?> showAlert<T>(
   bool info = false,
   bool error = false,
   Color? infoIconColor,
+  double? radius,
+  double? actionButtonRadius,
 }) async {
   if (!asLoader) {
     if (enableHaptics) haptics();
@@ -49,6 +51,8 @@ Future<T?> showAlert<T>(
     state: state,
     infoIconColor: infoIconColor,
     context: context,
+    radius: radius,
+    actionButtonRadius: actionButtonRadius,
   );
 }
 
@@ -65,6 +69,8 @@ Future<T?> _showDialog<T>(
   Future<void> Function()? onPositive,
   AlertState? state,
   Color? infoIconColor,
+  double? radius,
+  double? actionButtonRadius,
 }) async {
   bool showButton = false;
   bool timerStarted = false;
@@ -73,6 +79,7 @@ Future<T?> _showDialog<T>(
     return AlertActionButton(
       text: negativeTitle ?? 'Cancelar',
       isDestructive: positiveTitle == null && isDestructive,
+      radius: actionButtonRadius,
       onPressed: () {
         Navigator.pop(Flashly.context);
         if (onNegative != null) onNegative();
@@ -188,6 +195,7 @@ Future<T?> _showDialog<T>(
                       child: AlertActionButton(
                         text: positiveTitle,
                         isDestructive: isDestructive,
+                        radius: actionButtonRadius,
                         onPressed: () {
                           Navigator.pop(Flashly.context);
                           if (onPositive != null) onPositive();
@@ -213,6 +221,7 @@ Future<T?> _showDialog<T>(
       children: List<Widget>.generate(
         1, (index) => _AlertContainer(
           asLoader: asLoader, 
+          radius: radius,
           child: buildChild(context),
         ),
       ),
@@ -223,11 +232,15 @@ Future<T?> _showDialog<T>(
 class _AlertContainer extends StatelessWidget {
   final bool asLoader;
   final Widget child;
+  final double? radius;
 
   const _AlertContainer({
     required this.asLoader, 
     required this.child,
+    this.radius,
   });
+
+  BorderRadius get _borderRadius => BorderRadius.circular(radius ?? 8);
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +251,7 @@ class _AlertContainer extends StatelessWidget {
         insetPadding: EdgeInsets.zero,
         backgroundColor: Colors.transparent,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(Platform.isIOS ? 30 : 20),
+          borderRadius: _borderRadius,
           child: BackdropFilter(
             filter: ImageFilter.blur(
               sigmaX: Platform.isIOS ? 20 : 3, 
@@ -248,7 +261,7 @@ class _AlertContainer extends StatelessWidget {
               duration: Duration(milliseconds: 400),
               curve: Curves.easeOutCubic,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Platform.isIOS ? 30 : 20),
+                borderRadius: _borderRadius,
                 gradient: Platform.isIOS ? LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -283,7 +296,7 @@ class _AlertContainer extends StatelessWidget {
               ),
               child: Container(
                 decoration: Platform.isIOS ? BoxDecoration(
-                  borderRadius: BorderRadius.circular(26),
+                  borderRadius: _borderRadius,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -294,7 +307,7 @@ class _AlertContainer extends StatelessWidget {
                   ),
                 ) : null,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(Platform.isIOS ? 30 : 20),
+                  borderRadius: _borderRadius,
                   child: BackdropFilter(
                     filter: Platform.isIOS 
                       ? ImageFilter.blur(sigmaX: 4, sigmaY: 4)
