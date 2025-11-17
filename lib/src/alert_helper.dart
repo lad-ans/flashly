@@ -254,8 +254,8 @@ class _AlertContainer extends StatelessWidget {
           borderRadius: _borderRadius,
           child: BackdropFilter(
             filter: ImageFilter.blur(
-              sigmaX: Platform.isIOS ? 20 : 3, 
-              sigmaY: Platform.isIOS ? 20 : 3
+              sigmaX: Platform.isIOS ? 10 : 3, 
+              sigmaY: Platform.isIOS ? 10 : 3
             ),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 400),
