@@ -63,7 +63,7 @@ class AlertActionButton extends StatelessWidget {
       text, 
       fontSize: 16,
       color: Theme.of(context).cardColor,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.bold,
     );
 
     if (Platform.isIOS) {
